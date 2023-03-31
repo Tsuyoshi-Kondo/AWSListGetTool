@@ -1,0 +1,33 @@
+{
+  "env": {
+    "node": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "plugins": ["import", "unused-imports"], //追加
+  "rules": {
+    "unused-imports/no-unused-imports": "error",
+    "import/order": [
+      "error",
+       {
+         "groups": ["builtin", "external", ["parent", "sibling", "index", "object"], "type"],
+         "pathGroups": [
+           {
+             "pattern": "@/**",
+             "group": "parent",
+             "position": "before"
+           }        ],
+           "pathGroupsExcludedImportTypes": ["builtin"],
+            "alphabetize": {
+            "order": "asc",
+            "caseInsensitive": true
+          },
+            "newlines-between": "always"
+       }
+ ]
+}
+}

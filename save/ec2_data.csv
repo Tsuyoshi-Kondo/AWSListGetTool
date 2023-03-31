@@ -1,0 +1,4 @@
+"name","id","status","instanceType","MaxCPU","AveCPU"
+"test-ec2-instance","i-aaaaaaaaaaaaaaaaa","running","t2.micro",10,5
+"test-ec2-instance2","i-bbbbbbbbbbbbbbbbbb","running","t2.micro",20,10
+"test-ec2-instance3","i-cccccccccccccccccc","running","t2.micro",30,15
