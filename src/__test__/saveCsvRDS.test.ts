@@ -3,6 +3,7 @@ import { generateRDSClient } from "../func/generateClient";
 import { getCPUArray } from "../func/getCPUArray";
 import { getRDSInstances } from "../func/getRDSInstances";
 import { saveCsvRDS } from "../func/saveCsvRDS";
+import { ClientProps } from "../type/ClientProps";
 import { RDSListItem } from "../type/RDSListItem";
 
 // checkUndefinedForEnv関数をモック化する
@@ -46,6 +47,12 @@ const rdsListMock: RDSListItem[] = [
   },
 ];
 
+const clientPropsMock: ClientProps = {
+  accessKeyId: "********",
+  secretAccessKey: "********",
+  region: "********",
+};
+
 describe("saveCsvRDSのテスト", () => {
   test("RDSインスタンス・CPU使用率の一覧をCSVで出力する - 正常形", async () => {
     // モック化したcheckUndefinedForEnv関数の返り値を設定する
@@ -67,7 +74,7 @@ describe("saveCsvRDSのテスト", () => {
       .mockReturnValueOnce([rdsListMock[0].AveCPU, rdsListMock[1].AveCPU, rdsListMock[2].AveCPU]);
 
     // テスト対象の関数を実行する->saveフォルダのCSVを確認する
-    const rdsList = await saveCsvRDS();
+    const rdsList = await saveCsvRDS(clientPropsMock);
     expect(rdsList).toEqual(rdsListMock);
   });
 });

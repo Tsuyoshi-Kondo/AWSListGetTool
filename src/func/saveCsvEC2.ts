@@ -3,26 +3,14 @@ import fs from "fs";
 import iconv from "iconv-lite";
 import { Parser } from "json2csv";
 
-import { checkUndefinedForEnv } from "./checkUndefinedForEnv";
 import { generateEC2Client } from "./generateClient";
 import { getCPUArray } from "./getCPUArray";
 import { getEC2Instances } from "./getEC2Instances";
 import { ClientProps } from "../type/ClientProps";
 import { EC2ListItem } from "../type/EC2ListItem";
-import "dotenv/config";
 
-export const saveCsvEC2 = async () => {
+export const saveCsvEC2 = async (clientProps: ClientProps) => {
   try {
-    // envファイルのアクセスキー、シークレットアクセスキー、リージョンがundefinedでないかチェックする
-    checkUndefinedForEnv();
-
-    // 各クライアントを生成するための情報
-    const clientProps: ClientProps = {
-      accessKeyId: process.env.ACCESS_KEY_ID!,
-      secretAccessKey: process.env.SECRET_ACCESS_KEY!,
-      region: process.env.REGION!,
-    };
-
     // EC2クライアントを生成する
     const ec2Client = generateEC2Client(clientProps);
 
@@ -72,8 +60,6 @@ export const saveCsvEC2 = async () => {
     fs.writeFileSync("save/ec2_data.csv", iconv.encode(csvEC2, "Shift_JIS"));
     return ec2List;
   } catch (error: unknown) {
-    console.log(error);
+    throw new Error();
   }
 };
-
-saveCsvEC2();
