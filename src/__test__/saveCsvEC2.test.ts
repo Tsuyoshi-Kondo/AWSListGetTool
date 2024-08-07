@@ -3,6 +3,7 @@ import { generateEC2Client } from "../func/generateClient";
 import { getCPUArray } from "../func/getCPUArray";
 import { getEC2Instances } from "../func/getEC2Instances";
 import { saveCsvEC2 } from "../func/saveCsvEC2";
+import { ClientProps } from "../type/ClientProps";
 import { EC2ListItem } from "../type/EC2ListItem";
 
 // checkUndefinedForEnv関数をモック化する
@@ -49,6 +50,12 @@ const ec2ListMock: EC2ListItem[] = [
   },
 ];
 
+const clientPropsMock: ClientProps = {
+  accessKeyId: "********",
+  secretAccessKey: "********",
+  region: "********",
+};
+
 describe("saveCsvEC2のテスト", () => {
   test("EC2インスタンス・CPU使用率の一覧をCSVで出力する - 正常形", async () => {
     // モック化したcheckUndefinedForEnv関数の返り値を設定する
@@ -70,7 +77,7 @@ describe("saveCsvEC2のテスト", () => {
       .mockReturnValueOnce([ec2ListMock[0].AveCPU, ec2ListMock[1].AveCPU, ec2ListMock[2].AveCPU]);
 
     // テスト対象の関数を実行する->saveフォルダのCSVを確認する
-    const ec2List = await saveCsvEC2();
+    const ec2List = await saveCsvEC2(clientPropsMock);
     expect(ec2List).toEqual(ec2ListMock);
   });
 });

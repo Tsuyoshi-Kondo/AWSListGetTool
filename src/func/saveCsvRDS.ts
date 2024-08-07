@@ -3,26 +3,14 @@ import fs from "fs";
 import iconv from "iconv-lite";
 import { Parser } from "json2csv";
 
-import { checkUndefinedForEnv } from "./checkUndefinedForEnv";
 import { generateRDSClient } from "./generateClient";
 import { getCPUArray } from "./getCPUArray";
 import { getRDSInstances } from "./getRDSInstances";
 import { ClientProps } from "../type/ClientProps";
 import { RDSListItem } from "../type/RDSListItem";
-import "dotenv/config";
 
-export const saveCsvRDS = async () => {
+export const saveCsvRDS = async (clientProps: ClientProps) => {
   try {
-    // envファイルのアクセスキー、シークレットアクセスキー、リージョンがundefinedでないかチェックする
-    checkUndefinedForEnv();
-
-    // 各クライアントを生成するための情報
-    const clientProps: ClientProps = {
-      accessKeyId: process.env.ACCESS_KEY_ID!,
-      secretAccessKey: process.env.SECRET_ACCESS_KEY!,
-      region: process.env.REGION!,
-    };
-
     // RDSクライアントを生成する
     const rdsClient = generateRDSClient(clientProps);
 
@@ -70,8 +58,6 @@ export const saveCsvRDS = async () => {
     fs.writeFileSync("save/rds_data.csv", iconv.encode(csvRDS, "Shift_JIS"));
     return rdsList;
   } catch (error: unknown) {
-    console.log(error);
+    throw new Error();
   }
 };
-
-saveCsvRDS();

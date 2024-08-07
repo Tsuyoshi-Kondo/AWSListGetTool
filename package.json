@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn ./src/index.ts",
-    "saveEC2": "npx ts-node ./src/func/saveCsvEC2.ts",
-    "saveRDS": "npx ts-node ./src/func/saveCsvRDS.ts"
+    "save-ec2": "npx ts-node ./src/mainSaveCsvEC2.ts",
+    "save-rds": "npx ts-node ./src/mainSaveCsvRDS.ts",
+    "save-all-switch": "npx ts-node ./src/mainSaveAllAfterSwitchRole"
   },
   "keywords": [],
   "author": "",

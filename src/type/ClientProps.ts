@@ -2,5 +2,6 @@
 export type ClientProps = {
   accessKeyId: string;
   secretAccessKey: string;
+  sessionToken?: string;
   region: string;
 };

@@ -1,6 +1,7 @@
 import { CloudWatchClient } from "@aws-sdk/client-cloudwatch";
 import { EC2Client } from "@aws-sdk/client-ec2";
 import { RDSClient } from "@aws-sdk/client-rds";
+import { STSClient } from "@aws-sdk/client-sts";
 
 import { ClientProps } from "../type/ClientProps";
 
@@ -10,6 +11,7 @@ export const generateEC2Client = (clientProps: ClientProps) => {
     credentials: {
       accessKeyId: clientProps.accessKeyId,
       secretAccessKey: clientProps.secretAccessKey,
+      sessionToken: clientProps.sessionToken,
     },
     region: clientProps.region,
   });
@@ -22,6 +24,7 @@ export const generateRDSClient = (clientProps: ClientProps) => {
     credentials: {
       accessKeyId: clientProps.accessKeyId,
       secretAccessKey: clientProps.secretAccessKey,
+      sessionToken: clientProps.sessionToken,
     },
     region: clientProps.region,
   });
@@ -34,8 +37,22 @@ export const generateCloudWatchClient = (clientProps: ClientProps) => {
     credentials: {
       accessKeyId: clientProps.accessKeyId,
       secretAccessKey: clientProps.secretAccessKey,
+      sessionToken: clientProps.sessionToken,
     },
     region: clientProps.region,
   });
   return cwClient;
+};
+
+// スイッチロールのコマンドを実行するためのSTSClientを生成する
+export const generateSTSClient = (clientProps: ClientProps) => {
+  const stsClient = new STSClient({
+    credentials: {
+      accessKeyId: clientProps.accessKeyId,
+      secretAccessKey: clientProps.secretAccessKey,
+      sessionToken: clientProps.sessionToken,
+    },
+    region: clientProps.region,
+  });
+  return stsClient;
 };
