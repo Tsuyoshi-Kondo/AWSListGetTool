@@ -1,0 +1,4 @@
+"name","DBInstanceId","instanceType","MaxCPU","AveCPU"
+"タグ1","test-rds-instance","db.t2.micro",10,5
+"タグ2","test-rds-instance2","db.t2.micro",20,10
+"タグ3","test-rds-instance3","db.t2.micro",30,15

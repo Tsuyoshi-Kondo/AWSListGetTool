@@ -12,9 +12,22 @@ EC2・RDSのインスタンス一覧と各インスタンスの直近1ヶ月の
   # アクセスキー・シークレットキー・リージョンを記載する
 
   # 以下コマンドでEC2一覧のCSVがsaveフォルダに保存される
-  npm run saveEC2
+  $ npm run save-ec2
 
   # 以下コマンドでRDS一覧のCSVがsaveフォルダに保存される
-  npm run saveRDS
+  $ npm run save-rds
 
+  # envファイルにスイッチロール先のIAMロールのARNを記載後、
+  # 以下コマンドを実行することでスイッチロールして
+  # EC2・RDSの一覧を取得できる
+  $ rpm run save-all-switch
+
+```
+
+## envファイルのフォーマット
+```
+ACCESS_KEY_ID = "アクセスキー"
+SECRET_ACCESS_KEY = "シークレットキー"
+REGION = "ap-northeast-1"
+ROLE_ARN = "arn:aws:iam::************:role/***********"
 ```
